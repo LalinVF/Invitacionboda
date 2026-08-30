@@ -127,10 +127,17 @@ function seleccionarAsistencia(asiste) {
     document.getElementById('rsvp-detalles').style.display = asiste ? 'block' : 'none';
 
     if (asiste && guestData) {
-        const boletos = guestData.boletos || '1';
-        document.getElementById('rsvp-boletos').innerHTML =
-            "Tienes <strong>" + boletos + "</strong> boleto" + (boletos == 1 ? "" : "s") + " reservado" + (boletos == 1 ? "" : "s") + " para la aventura.";
+    const boletos = parseInt(guestData.boletos || '0', 10);
+    const boletosEl = document.getElementById('rsvp-boletos');
+    if (boletos > 0) {
+        boletosEl.innerHTML =
+            "Tienes <strong>" + boletos + "</strong> boleto" + (boletos === 1 ? "" : "s") + " extra" + (boletos === 1 ? "" : "s") + " para acompañantes.";
+        boletosEl.style.display = 'block';
+    } else {
+        boletosEl.innerHTML = "";
+        boletosEl.style.display = 'none';
     }
+}
 
     const btnSi = document.getElementById('btn-asiste-si');
     const btnNo = document.getElementById('btn-asiste-no');
