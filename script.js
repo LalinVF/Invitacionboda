@@ -1,56 +1,30 @@
-window.onload = () => {
+// --- AUTO SCROLL AL FONDO (CORREGIDO PARA CUALQUIER DISPOSITIVO) ---
+window.addEventListener('load', () => {
+    // Forzamos el scroll al fondo de la pagina al cargar
     setTimeout(() => {
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 300);
+        const bottomElement = document.getElementById('bottom-anchor');
+        if(bottomElement) {
+            bottomElement.scrollIntoView({ behavior: 'auto', block: 'end' });
+        } else {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    }, 100);
+});
+
+// --- AUDIO AUTOPLAY (TRUCO MÓVIL) ---
+const bgMusic = document.getElementById('bg-music');
+const startAudio = () => {
+    bgMusic.play().catch(e => console.log("Esperando interacción..."));
+    document.removeEventListener('click', startAudio);
+    document.removeEventListener('touchstart', startAudio);
+    document.removeEventListener('scroll', startAudio);
 };
 
-const musicBtn = document.getElementById('music-btn');
-const bgMusic = document.getElementById('bg-music');
-let isPlaying = false;
+document.addEventListener('click', startAudio, { once: true });
+document.addEventListener('touchstart', startAudio, { once: true });
+document.addEventListener('scroll', startAudio, { once: true });
 
-function updateAudioState(playing) {
-    isPlaying = playing;
-    if (playing) {
-        musicBtn.innerHTML = "🔊 PAUSAR AVENTURA";
-    } else {
-        musicBtn.innerHTML = "🎵 INICIAR AVENTURA";
-    }
-}
-
-window.addEventListener('load', () => {
-    const playPromise = bgMusic.play();
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            updateAudioState(true);
-        }).catch(error => {
-            updateAudioState(false);
-        });
-    }
-});
-
-document.addEventListener('click', function startAudio() {
-    if (!isPlaying) { bgMusic.play().then(() => updateAudioState(true)).catch(e => console.log(e)); }
-    document.removeEventListener('click', startAudio);
-}, { once: true });
-
-document.addEventListener('touchstart', function startAudioTouch() {
-    if (!isPlaying) { bgMusic.play().then(() => updateAudioState(true)).catch(e => console.log(e)); }
-    document.removeEventListener('touchstart', startAudioTouch);
-}, { once: true });
-
-musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (!isPlaying) {
-        bgMusic.play().then(() => updateAudioState(true)).catch(e => console.log("Requiere interaccion", e));
-    } else {
-        bgMusic.pause();
-        updateAudioState(false);
-    }
-});
-
+// --- NIEVE ---
 function createSnowflake() {
     const snowContainer = document.getElementById('snow-container');
     const snowflake = document.createElement('div');
@@ -66,6 +40,7 @@ function createSnowflake() {
 }
 setInterval(createSnowflake, 250);
 
+// --- CONTADOR ---
 const targetDate = new Date("Nov 15, 2026 23:59:59").getTime();
 const countdownTimer = setInterval(() => {
     const now = new Date().getTime();
@@ -87,18 +62,110 @@ const countdownTimer = setInterval(() => {
     document.getElementById("countdown").innerHTML = `${d}:${h}:${m}:${s}`;
 }, 1000);
 
-function abrirConfirmacion() { document.getElementById('rsvp-modal').style.display = 'flex'; }
-function cerrarConfirmacion() { document.getElementById('rsvp-modal').style.display = 'none'; }
+// --- CONFIRMACIÓN ---
+let guestData = null;      // datos del invitado ya encontrado
+let asisteSeleccionado = null; // true/false una vez que elige
 
-function simularEnvio() {
-    const input = document.getElementById('guest-name').value;
+function abrirConfirmacion() {
+    document.getElementById('rsvp-modal').style.display = 'flex';
+}
+
+function cerrarConfirmacion() {
+    document.getElementById('rsvp-modal').style.display = 'none';
+    // Reset para la próxima vez que se abra
+    document.getElementById('rsvp-step-code').style.display = 'block';
+    document.getElementById('rsvp-step-form').style.display = 'none';
+    document.getElementById('rsvp-detalles').style.display = 'none';
+    document.getElementById('rsvp-msg').style.display = 'none';
+    document.getElementById('guest-code').value = '';
+    asisteSeleccionado = null;
+    guestData = null;
+}
+
+function mostrarMensaje(texto, color) {
     const msg = document.getElementById('rsvp-msg');
-    if(input.trim() === "") {
-        msg.style.color = "#ff4c4c";
-        msg.innerHTML = "Por favor, ingresa tu nombre.";
-    } else {
-        msg.style.color = "#70c1ff";
-        msg.innerHTML = "¡Conectando a Google Sheets para confirmar!";
-    }
+    msg.style.color = color;
+    msg.innerHTML = texto;
     msg.style.display = 'block';
+}
+
+// --- PASO 1: buscar invitado por código (llama a /api/rsvp) ---
+function buscarCodigo() {
+    const codigo = document.getElementById('guest-code').value.trim();
+    if (codigo === "") {
+        mostrarMensaje("Por favor, ingresa tu código de invitación.", "#ff4c4c");
+        return;
+    }
+
+    mostrarMensaje("Buscando en el inventario de la aventura...", "#f7c654");
+
+    fetch('/api/rsvp?id=' + encodeURIComponent(codigo))
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+            if (!ok) {
+                mostrarMensaje(data.error || "No encontramos ese código.", "#ff4c4c");
+                return;
+            }
+            guestData = data;
+            document.getElementById('rsvp-msg').style.display = 'none';
+            document.getElementById('rsvp-nombre').innerHTML = "¡Hola, " + data.nombre + "!";
+            document.getElementById('rsvp-step-code').style.display = 'none';
+            document.getElementById('rsvp-step-form').style.display = 'block';
+        })
+        .catch(() => {
+            mostrarMensaje("Hubo un problema de conexión. Intenta de nuevo.", "#ff4c4c");
+        });
+}
+
+// --- PASO 2a: elegir sí/no asiste ---
+function seleccionarAsistencia(asiste) {
+    asisteSeleccionado = asiste;
+    document.getElementById('rsvp-detalles').style.display = asiste ? 'block' : 'none';
+
+    const btnSi = document.getElementById('btn-asiste-si');
+    const btnNo = document.getElementById('btn-asiste-no');
+    btnSi.style.background = asiste ? "rgba(93, 230, 255, 0.35)" : "rgba(18, 97, 138, 0.35)";
+    btnNo.style.background = !asiste ? "rgba(255, 76, 76, 0.35)" : "rgba(18, 97, 138, 0.35)";
+}
+
+// --- PASO 2b: enviar confirmación (llama a /api/rsvp) ---
+function enviarConfirmacion() {
+    if (!guestData) return;
+    if (asisteSeleccionado === null) {
+        mostrarMensaje("Elige si asistirás o no antes de confirmar.", "#ff4c4c");
+        return;
+    }
+
+    const payload = {
+        id: guestData.id,
+        asiste: asisteSeleccionado,
+        acompanantes: asisteSeleccionado ? (document.getElementById('guest-acompanantes').value || 0) : 0,
+        restricciones: asisteSeleccionado ? document.getElementById('guest-restricciones').value : ''
+    };
+
+    mostrarMensaje("Guardando tu confirmación...", "#f7c654");
+
+    fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+            if (!ok) {
+                mostrarMensaje(data.error || "No se pudo guardar tu confirmación.", "#ff4c4c");
+                return;
+            }
+            let texto = data.message;
+            if (asisteSeleccionado && data.mesa) {
+                texto += " Tu mesa asignada es la <strong>" + data.mesa + "</strong>.";
+            } else if (asisteSeleccionado) {
+                texto += " Te avisaremos tu mesa más adelante.";
+            }
+            mostrarMensaje(texto, "#5de6ff");
+            document.getElementById('rsvp-step-form').style.display = 'none';
+        })
+        .catch(() => {
+            mostrarMensaje("Hubo un problema de conexión. Intenta de nuevo.", "#ff4c4c");
+        });
 }

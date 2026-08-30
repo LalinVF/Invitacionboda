@@ -11,7 +11,6 @@
 </head>
 <body>
     <div id="snow-container"></div>
-    <button id="music-btn" class="top-right-btn">🎵 INICIAR AVENTURA</button>
     <audio id="bg-music" loop autoplay>
         <source src="assets/the_library.mp3" type="audio/mpeg">
     </audio>
@@ -20,12 +19,12 @@
         <img src="assets/INVITACIONES_4.jpg" class="full-bg-img" alt="Aventura Jessica y Eduardo">
 
         <!-- OVERLAY 1: Aurora (Quote) -->
-        <div class="overlay align-center" style="top: 4%;">
-            <p class="lateef-text text-shadow text-center" style="font-size: 2rem; line-height: 1.1;">“Si estás conmigo, <br>entonces todo estará bien”</p>
+        <div class="overlay overlay-1">
+            <p class="lateef-text text-shadow text-center" style="font-size: clamp(1.4rem, 4vw, 2rem); line-height: 1.1;">“Si estás conmigo, <br>entonces todo estará bien”</p>
         </div>
 
         <!-- OVERLAY 2: Confirmación -->
-        <div class="overlay align-center" style="top: 11%;">
+        <div class="overlay overlay-2">
             <button class="btn-confirma" onclick="abrirConfirmacion()">Confirma tu asistencia</button>
             <p class="gold-text mt-3">Antes del 15 de noviembre de 2026</p>
             <div id="countdown" class="glow-text">078:23:48:56</div>
@@ -37,9 +36,9 @@
         </div>
 
         <!-- OVERLAY 3: Undertale (Inventario) -->
-        <div class="overlay align-center" style="top: 33%;">
-            <h2 class="lateef-text text-shadow text-center" style="font-size: 3.2rem; line-height: 1;">Los items y <br>el inventario</h2>
-            <div class="grid-2 px-4 w-100 mt-4" style="max-width: 380px;">
+        <div class="overlay overlay-3">
+            <h2 class="lateef-text text-shadow text-center section-title">Los items y <br>el inventario</h2>
+            <div class="grid-2 px-2 w-100 mt-2 qr-container">
                 <div class="col-item">
                     <a href="https://www.amazon.com.mx/wedding/share/JessyLalin" target="_blank" style="display:block; width:100%;">
                         <div class="qr-box">
@@ -55,10 +54,10 @@
                     </a>
                 </div>
             </div>
-            <p class="lato-text mt-2 text-shadow text-center" style="font-size: 0.8rem;">
-                (Escanea los código para ir a nuestras mesas de regalos).
+            <p class="lato-text mt-2 text-shadow text-center text-xs">
+                (Escanea o toca los código para ir a nuestras mesas de regalos).
             </p>
-            <p class="lateef-text mt-4 text-shadow text-center" style="font-size: 2rem; line-height: 1.1;">
+            <p class="lateef-text mt-2 text-shadow text-center quote-med">
                 Agradecemos cualquier espada,<br>
                 arco, flecha,<br>
                 martillo o sartén que nos quieran<br>
@@ -67,56 +66,59 @@
         </div>
 
         <!-- OVERLAY 4: Zelda (Coordenadas) -->
-        <div class="overlay align-center" style="top: 55%;">
-            <h2 class="lateef-text text-shadow text-center" style="font-size: 2.8rem; line-height: 1.1;">Coordenadas <br>de nuestra aventura:<br>Ceremonia y Recepción</h2>
+        <div class="overlay overlay-4">
+            <h2 class="lateef-text text-shadow text-center section-title">Coordenadas <br>de nuestra aventura:<br>Ceremonia y Recepción</h2>
             
-            <div class="grid-2 px-2 w-100 mt-4" style="max-width: 440px; align-items: stretch;">
+            <div class="grid-2 px-2 w-100 mt-2 map-container">
                 <div class="map-card-styled">
                     <p class="lato-text fw-bold text-center map-title">Parroquia Santísima Trinidad<br>y Nuestra Señora del Refugio</p>
                     <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.610996898717!2d-99.20235372569502!3d19.429215040788647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201f6521a0063%3A0x6bba843ffbc2c5bc!2sParroquia%20de%20San%20Ignacio%20de%20Loyola!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy"></iframe>
-                    <a href="https://maps.app.goo.gl/JX6Wicq5VkjMpzWb8" target="_blank" class="small-pill-btn mt-2">VER MAPA</a>
+                    <a href="https://maps.app.goo.gl/JX6Wicq5VkjMpzWb8" target="_blank" class="small-pill-btn mt-1">VER MAPA</a>
                     <p class="lato-text fw-bold text-center map-address">Francisco Tamagno 154,<br>Peralvillo, Cuauhtémoc,<br>06220 Ciudad de México, CDMX</p>
                 </div>
                 
                 <div class="map-card-styled">
                     <p class="lato-text fw-bold text-center map-title">Centro de convenciones<br>Tlatelolco</p>
                     <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.570135898801!2d-99.1678121256961!3d19.387768542127244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff0c11571dd9%3A0x628022b740510619!2sSal%C3%B3n%20de%20Fiestas!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy"></iframe>
-                    <a href="https://maps.app.goo.gl/vspMvxfUNVvX8MFn8" target="_blank" class="small-pill-btn mt-2">VER MAPA</a>
+                    <a href="https://maps.app.goo.gl/vspMvxfUNVvX8MFn8" target="_blank" class="small-pill-btn mt-1">VER MAPA</a>
                     <p class="lato-text fw-bold text-center map-address">Manuel Gonzalez 171,<br>San Simón Tolnahuac, Cuauhtémoc,<br>06920 Ciudad de México, CDMX</p>
                 </div>
             </div>
 
-            <div class="text-center mt-4">
-                <p class="lato-text text-shadow text-sm fw-bold" style="font-size: 1.5rem; line-height: 1.3;">Ceremonia. 5:00 pm<br>Recepcion. 7:00 pm</p>
-                <p class="lato-text text-shadow mt-3 fw-bold" style="font-size: 1.3rem;">BalletParking salon $100.00</p>
+            <div class="text-center mt-3 mb-2">
+                <p class="lato-text text-shadow text-sm fw-bold">Ceremonia. 5:00 pm<br>Recepcion. 7:00 pm</p>
+                <p class="lato-text text-shadow mt-1 fw-bold" style="font-size: clamp(0.9rem, 2.5vw, 1.3rem);">BalletParking salon $100.00</p>
             </div>
         </div>
 
         <!-- OVERLAY 5: Pinos y Cielo -->
-        <div class="overlay align-center" style="top: 77%;">
-            <p class="lateef-text text-shadow text-center" style="font-size: 2.2rem; line-height: 1.2;">
+        <div class="overlay overlay-5">
+            <p class="lateef-text text-shadow text-center quote-large">
                 El frío nos recuerda<br>que las mejoreshistorias<br>se viven acompañados.
             </p>
         </div>
 
         <!-- OVERLAY 6: Sky Cargando -->
-        <div class="overlay align-center" style="top: 83%;">
-            <p class="lato-text pulse-anim text-center dark-blue-text" style="font-size: 1.3rem; letter-spacing: 1px; font-weight: 700; line-height: 1.4;">
+        <div class="overlay overlay-6">
+            <p class="lato-text pulse-anim text-center dark-blue-text" style="font-size: clamp(0.8rem, 2.5vw, 1.1rem); letter-spacing: 1px; font-weight: 700; line-height: 1.4;">
                 CARGANDO AVENTURA...<br>¡SUBAMOS! ▲
             </p>
         </div>
 
         <!-- OVERLAY 7: Nombres -->
-        <div class="overlay align-center" style="top: 88%;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-left: 15%;">
-                <div class="lateef-text dark-blue-text" style="text-align: right; font-size: 4rem; line-height: 0.9; font-weight: 600;">
-                    JESSICA<br><span style="font-size: 2.5rem;">&</span><br>EDUARDO
+        <div class="overlay overlay-7">
+            <div class="names-flex-container">
+                <div class="lateef-text dark-blue-text names-text">
+                    JESSICA<br><span style="font-size: 0.6em;">&</span><br>EDUARDO
                 </div>
-                <div style="background-color: #172a48; color: white; padding: 15px 18px; font-family: 'Lato', sans-serif; font-weight: 900; font-size: 2.4rem; line-height: 1.1; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.3);">
+                <div class="date-box-dark">
                     18<br>12<br>26
                 </div>
             </div>
         </div>
+
+        <!-- ELEMENTO ANCLA PARA EL SCROLL -->
+        <div id="bottom-anchor" style="position: absolute; bottom: 0; width: 100%; height: 1px;"></div>
 
     </div>
 
@@ -125,10 +127,36 @@
         <div class="modal-content text-center" style="background: rgba(15, 25, 40, 0.95); border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 2rem; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.7);">
             <span class="close-btn" onclick="cerrarConfirmacion()">&times;</span>
             <h2 class="lateef-text">Búsqueda de Jugador</h2>
-            <p class="lato-text mt-2" style="font-size: 0.9rem;">Ingresa tu nombre para confirmar asistencia</p>
-            <input type="text" id="guest-name" class="glass-input mt-3" placeholder="Ej. Mario Bros">
-            <button class="pill-btn mt-4 w-100" style="padding: 10px; background: rgba(55, 75, 95, 0.85);" onclick="simularEnvio()">BUSCAR</button>
-            <p id="rsvp-msg" class="lato-text mt-2" style="display:none; color:#5de6ff; font-size: 0.9rem;"></p>
+
+            <!-- PASO 1: código de invitación -->
+            <div id="rsvp-step-code">
+                <p class="lato-text mt-2" style="font-size: 0.9rem;">Ingresa el código de tu invitación</p>
+                <input type="text" id="guest-code" class="glass-input mt-3" placeholder="Ej. JL-001">
+                <button class="btn-confirma mt-4 w-100" style="padding: 10px; background: rgba(55, 75, 95, 0.85); border-radius: 15px;" onclick="buscarCodigo()">BUSCAR</button>
+            </div>
+
+            <!-- PASO 2: confirmación de asistencia -->
+            <div id="rsvp-step-form" style="display:none;">
+                <p class="lato-text mt-3" id="rsvp-nombre" style="font-size: 1.15rem; font-weight:700;"></p>
+
+                <p class="lato-text mt-3" style="font-size: 0.85rem;">¿Asistirás a la aventura?</p>
+                <div class="grid-2 mt-2" style="gap: 10px;">
+                    <button type="button" id="btn-asiste-si" class="btn-confirma w-100" style="padding:8px;" onclick="seleccionarAsistencia(true)">SÍ ASISTO</button>
+                    <button type="button" id="btn-asiste-no" class="btn-confirma w-100" style="padding:8px;" onclick="seleccionarAsistencia(false)">NO PUEDO</button>
+                </div>
+
+                <div id="rsvp-detalles" style="display:none;">
+                    <p class="lato-text mt-3" style="font-size: 0.85rem;">Acompañantes (sin contarte a ti)</p>
+                    <input type="number" id="guest-acompanantes" class="glass-input mt-2" min="0" max="5" value="0">
+
+                    <p class="lato-text mt-3" style="font-size: 0.85rem;">¿Alguna restricción alimenticia?</p>
+                    <input type="text" id="guest-restricciones" class="glass-input mt-2" placeholder="Ej. Vegetariano, ninguna...">
+                </div>
+
+                <button class="btn-confirma mt-4 w-100" style="padding: 10px; background: rgba(55, 75, 95, 0.85); border-radius: 15px;" onclick="enviarConfirmacion()">CONFIRMAR</button>
+            </div>
+
+            <p id="rsvp-msg" class="lato-text mt-3" style="display:none; font-size: 0.9rem;"></p>
         </div>
     </div>
 
