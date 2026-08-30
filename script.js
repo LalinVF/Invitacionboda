@@ -14,14 +14,14 @@ window.addEventListener('load', () => {
 // --- AUDIO AUTOPLAY (TRUCO MÓVIL) ---
 const bgMusic = document.getElementById('bg-music');
 const startAudio = () => {
-    bgMusic.play().catch(e => console.log("Esperando interacción..."));
-    document.removeEventListener('click', startAudio);
-    document.removeEventListener('touchstart', startAudio);
-    document.removeEventListener('scroll', startAudio);
+    bgMusic.volume = 0.35; // 0 = silencio, 1 = volumen original. Ajusta a tu gusto.
+    bgMusic.play().then(() => {
+        document.removeEventListener('click', startAudio);
+        document.removeEventListener('touchstart', startAudio);
+    }).catch(e => console.log("Esperando interacción..."));
 };
-
-document.addEventListener('click', startAudio, { once: true });
-document.addEventListener('touchstart', startAudio, { once: true });
+document.addEventListener('click', startAudio);
+document.addEventListener('touchstart', startAudio);
 document.addEventListener('scroll', startAudio, { once: true });
 
 // --- NIEVE ---
