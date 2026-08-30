@@ -113,9 +113,29 @@ body { -ms-overflow-style: none; scrollbar-width: none; }
     white-space: nowrap;
 }
 
+.countdown-wrap {
+    display: flex;
+    justify-content: center;
+    gap: clamp(6px, 2vw, 16px);
+    margin: 2px 0;
+}
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.countdown-label {
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(0.6rem, 2vw, 0.85rem);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f7c654;
+    margin-top: 2px;
+}
+
 .quote-small { font-size: clamp(1.2rem, 3.2vw, 1.5rem); line-height: 1.2; letter-spacing: 0.5px;}
 .quote-med { font-size: clamp(1.4rem, 5vw, 2rem); line-height: 1.1; letter-spacing: 0.5px;}
-.quote-large { font-size: clamp(1.2rem, 1.2vw, 1rem); line-height: 1.1; letter-spacing: 0.5px;}
+.quote-large { font-size: clamp(1.4rem, 5vw, 2rem); line-height: 1.2; letter-spacing: 0.5px;}
 .section-title { font-size: clamp(1.8rem, 6vw, 3.2rem); line-height: 1.1; margin-bottom: 5px; }
 
 

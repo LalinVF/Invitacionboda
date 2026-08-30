@@ -51,45 +51,46 @@ module.exports = async (req, res) => {
       if (!row) return res.status(404).json({ error: 'No encontramos ese código. Revisa tu invitación.' });
 
       return res.status(200).json({
-        id: row[0],
-        nombre: row[1] || '',
-        confirmado: row[2] || 'PENDIENTE',
-        acompanantes: row[3] || '0',
-        restricciones: row[4] || '',
-        mesa: row[5] || ''
+          id: row[0],
+          nombre: row[1] || '',
+          confirmado: row[2] || 'PENDIENTE',
+          boletos: row[3] || '1',
+          restricciones: row[4] || '',
+          mesa: row[5] || ''
       });
     }
 
     // --- GUARDAR CONFIRMACIÓN ---
     if (req.method === 'POST') {
       const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-      const { id, asiste, acompanantes, restricciones } = body;
-      const cleanId = String(id || '').trim().toUpperCase();
-      if (!cleanId) return res.status(400).json({ error: 'Falta el código de invitación.' });
+        const { id, asiste, restricciones } = body;
+        const cleanId = String(id || '').trim().toUpperCase();
+        if (!cleanId) return res.status(400).json({ error: 'Falta el código de invitación.' });
 
-      const result = await sheets.spreadsheets.values.get({ spreadsheetId: SHEET_ID, range: RANGE });
-      const rows = result.data.values || [];
-      const rowIndex = rows.findIndex(r => (r[0] || '').trim().toUpperCase() === cleanId);
+        const result = await sheets.spreadsheets.values.get({ spreadsheetId: SHEET_ID, range: RANGE });
+        const rows = result.data.values || [];
+        const rowIndex = rows.findIndex(r => (r[0] || '').trim().toUpperCase() === cleanId);
 
-      if (rowIndex === -1) return res.status(404).json({ error: 'No encontramos ese código.' });
+        if (rowIndex === -1) return res.status(404).json({ error: 'No encontramos ese código.' });
 
-      const mesaActual = rows[rowIndex][5] || '';
-      const sheetRow = rowIndex + 2; // +2 porque la fila 1 es encabezado y el índice empieza en 0
+        const boletosActuales = rows[rowIndex][3] || '1';
+        const mesaActual = rows[rowIndex][5] || '';
+        const sheetRow = rowIndex + 2;
 
-      await sheets.spreadsheets.values.update({
-        spreadsheetId: SHEET_ID,
-        range: `Invitados!C${sheetRow}:G${sheetRow}`,
-        valueInputOption: 'USER_ENTERED',
-        requestBody: {
-          values: [[
-            asiste ? 'SI' : 'NO',
-            asiste ? String(acompanantes ?? 0) : '0',
-            asiste ? (restricciones || '') : '',
-            mesaActual,
-            new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })
-          ]]
-        }
-      });
+        await sheets.spreadsheets.values.update({
+            spreadsheetId: SHEET_ID,
+            range: `Invitados!C${sheetRow}:G${sheetRow}`,
+            valueInputOption: 'USER_ENTERED',
+            requestBody: {
+                values: [[
+                    asiste ? 'SI' : 'NO',
+                    boletosActuales,
+                    asiste ? (restricciones || '') : '',
+                    mesaActual,
+                    new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })
+                ]]
+            }
+        });
 
       return res.status(200).json({
         status: 'success',

@@ -41,14 +41,16 @@ function createSnowflake() {
 setInterval(createSnowflake, 250);
 
 // --- CONTADOR ---
-const targetDate = new Date("Nov 15, 2026 23:59:59").getTime();
-const countdownTimer = setInterval(() => {
+    const targetDate = new Date("Dec 18, 2026 17:00:00").getTime();
+    const countdownTimer = setInterval(() => {
     const now = new Date().getTime();
     const distance = targetDate - now;
     if (distance < 0) {
         clearInterval(countdownTimer);
-        document.getElementById("countdown").innerHTML = "000:00:00:00";
-        return;
+    document.getElementById("cd-dias").innerHTML = "000";
+    document.getElementById("cd-horas").innerHTML = "00";
+    document.getElementById("cd-min").innerHTML = "00";
+    document.getElementById("cd-seg").innerHTML = "00";        return;
     }
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -59,8 +61,10 @@ const countdownTimer = setInterval(() => {
     const h = String(hours).padStart(2, '0');
     const m = String(minutes).padStart(2, '0');
     const s = String(seconds).padStart(2, '0');
-    document.getElementById("countdown").innerHTML = `${d}:${h}:${m}:${s}`;
-}, 1000);
+    document.getElementById("cd-dias").innerHTML = d;
+    document.getElementById("cd-horas").innerHTML = h;
+    document.getElementById("cd-min").innerHTML = m;
+    document.getElementById("cd-seg").innerHTML = s;}, 1000);
 
 // --- CONFIRMACIÓN ---
 let guestData = null;      // datos del invitado ya encontrado
@@ -122,6 +126,12 @@ function seleccionarAsistencia(asiste) {
     asisteSeleccionado = asiste;
     document.getElementById('rsvp-detalles').style.display = asiste ? 'block' : 'none';
 
+    if (asiste && guestData) {
+        const boletos = guestData.boletos || '1';
+        document.getElementById('rsvp-boletos').innerHTML =
+            "Tienes <strong>" + boletos + "</strong> boleto" + (boletos == 1 ? "" : "s") + " reservado" + (boletos == 1 ? "" : "s") + " para la aventura.";
+    }
+
     const btnSi = document.getElementById('btn-asiste-si');
     const btnNo = document.getElementById('btn-asiste-no');
     btnSi.style.background = asiste ? "rgba(93, 230, 255, 0.35)" : "rgba(18, 97, 138, 0.35)";
@@ -139,7 +149,6 @@ function enviarConfirmacion() {
     const payload = {
         id: guestData.id,
         asiste: asisteSeleccionado,
-        acompanantes: asisteSeleccionado ? (document.getElementById('guest-acompanantes').value || 0) : 0,
         restricciones: asisteSeleccionado ? document.getElementById('guest-restricciones').value : ''
     };
 

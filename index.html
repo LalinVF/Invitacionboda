@@ -27,7 +27,24 @@
         <div class="overlay overlay-2">
             <button class="btn-confirma" onclick="abrirConfirmacion()">Confirma tu asistencia</button>
             <p class="gold-text mt-3">Antes del 15 de noviembre de 2026</p>
-            <div id="countdown" class="glow-text">078:23:48:56</div>
+<div class="countdown-wrap">
+    <div class="countdown-item">
+        <span id="cd-dias" class="glow-text">078</span>
+        <p class="countdown-label">Días</p>
+    </div>
+    <div class="countdown-item">
+        <span id="cd-horas" class="glow-text">23</span>
+        <p class="countdown-label">Horas</p>
+    </div>
+    <div class="countdown-item">
+        <span id="cd-min" class="glow-text">48</span>
+        <p class="countdown-label">Min</p>
+    </div>
+    <div class="countdown-item">
+        <span id="cd-seg" class="glow-text">56</span>
+        <p class="countdown-label">Seg</p>
+    </div>
+</div>
             <p class="lateef-text mt-2 text-shadow text-center quote-small">
                 “Cuando este mundo ya no exista<br>
                 La luna será todo lo que veremos<br>
@@ -146,11 +163,10 @@
                 </div>
 
                 <div id="rsvp-detalles" style="display:none;">
-                    <p class="lato-text mt-3" style="font-size: 0.85rem;">Acompañantes (sin contarte a ti)</p>
-                    <input type="number" id="guest-acompanantes" class="glass-input mt-2" min="0" max="5" value="0">
+                <p class="lato-text mt-3" style="font-size: 0.95rem;" id="rsvp-boletos"></p>
 
-                    <p class="lato-text mt-3" style="font-size: 0.85rem;">¿Alguna restricción alimenticia?</p>
-                    <input type="text" id="guest-restricciones" class="glass-input mt-2" placeholder="Ej. Vegetariano, ninguna...">
+                <p class="lato-text mt-3" style="font-size: 0.85rem;">¿Alguna restricción alimenticia?</p>
+                <input type="text" id="guest-restricciones" class="glass-input mt-2" placeholder="Ej. Vegetariano, ninguna...">
                 </div>
 
                 <button class="btn-confirma mt-4 w-100" style="padding: 10px; background: rgba(55, 75, 95, 0.85); border-radius: 15px;" onclick="enviarConfirmacion()">CONFIRMAR</button>
