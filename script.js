@@ -176,7 +176,7 @@ function enviarConfirmacion() {
             if (asisteSeleccionado && data.mesa) {
                 texto += " Tu mesa asignada es la <strong>" + data.mesa + "</strong>.";
             } else if (asisteSeleccionado) {
-                texto += " Te avisaremos tu mesa más adelante.";
+                texto += " Nos vemos en diciembre. n u n ";
             }
             mostrarMensaje(texto, "#5de6ff");
             document.getElementById('rsvp-step-form').style.display = 'none';
@@ -184,4 +184,13 @@ function enviarConfirmacion() {
         .catch(() => {
             mostrarMensaje("Hubo un problema de conexión. Intenta de nuevo.", "#ff4c4c");
         });
+}
+
+// --- BOTÓN DEL ABRIGO ---
+function tomarAbrigo() {
+    const btn = document.getElementById('coat-button');
+    btn.classList.add('taken');
+    setTimeout(() => {
+        document.getElementById('coat-wrap').classList.add('hidden');
+    }, 700);
 }
