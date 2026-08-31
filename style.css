@@ -64,8 +64,8 @@ body { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* POSICIONES RESPONSIVE */
 .overlay-1 { top: 2.5%; }
-.overlay-2 { top: 10%; }
-.overlay-3 { top: 23%; }
+.overlay-2 { top: 8%; }
+.overlay-3 { top: 20%; }
 .overlay-4 { top: 47%; }
 .overlay-5 { top: 73%; }
 .overlay-6 { top: 81%; }
