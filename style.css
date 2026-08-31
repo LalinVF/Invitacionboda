@@ -65,7 +65,7 @@ body { -ms-overflow-style: none; scrollbar-width: none; }
 /* POSICIONES RESPONSIVE */
 .overlay-1 { top: 2.5%; }
 .overlay-2 { top: 8%; }
-.overlay-3 { top: 20%; }
+.overlay-3 { top: 21%; }
 .overlay-4 { top: 47%; }
 .overlay-5 { top: 73%; }
 .overlay-6 { top: 81%; }
@@ -133,10 +133,10 @@ body { -ms-overflow-style: none; scrollbar-width: none; }
     margin-top: 2px;
 }
 
-.quote-small { font-size: clamp(1.2rem, 3.2vw, 1.5rem); line-height: 1.2; letter-spacing: 0.5px;}
-.quote-med { font-size: clamp(1.4rem, 5vw, 2rem); line-height: 1.1; letter-spacing: 0.5px;}
-.quote-large { font-size: clamp(1.4rem, 5vw, 2rem); line-height: 1.2; letter-spacing: 0.5px;}
-.section-title { font-size: clamp(1.8rem, 6vw, 3.2rem); line-height: 1.1; margin-bottom: 5px; }
+.quote-small { font-size: clamp(1.2rem, 3.2vw, 1.5rem); line-height: .80; letter-spacing: 0.5px;}
+.quote-med { font-size: clamp(1.4rem, 5vw, 2rem); line-height: .80; letter-spacing: 0.5px;}
+.quote-large { font-size: clamp(1.4rem, 5vw, 2rem); line-height: .80; letter-spacing: 0.5px;}
+.section-title { font-size: clamp(1.8rem, 6vw, 3.2rem); line-height: .80; margin-bottom: 5px; }
 
 
 /* Botones Pequeños */
