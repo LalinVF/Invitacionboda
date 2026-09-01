@@ -195,6 +195,9 @@ function enviarConfirmacion() {
 function tomarAbrigo() {
     const btn = document.getElementById('coat-button');
     btn.classList.add('taken');
+    if (bgMusic.paused) {
+        bgMusic.play().catch(() => {});
+    }
     setTimeout(() => {
         document.getElementById('coat-wrap').classList.add('hidden');
     }, 700);
