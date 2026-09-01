@@ -27,7 +27,7 @@ function toggleAudio(e) {
 }
 
 document.addEventListener('click', toggleAudio);
-document.addEventListener('touchstart', toggleAudio);
+
 
 // --- NIEVE ---
 function createSnowflake() {
