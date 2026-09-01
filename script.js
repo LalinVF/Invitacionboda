@@ -11,18 +11,23 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
-// --- AUDIO AUTOPLAY (TRUCO MÓVIL) ---
+// --- AUDIO: TAP PARA REPRODUCIR / TAP DE NUEVO PARA PAUSAR ---
 const bgMusic = document.getElementById('bg-music');
-const startAudio = () => {
-    bgMusic.volume = 0.35; // 0 = silencio, 1 = volumen original. Ajusta a tu gusto.
-    bgMusic.play().then(() => {
-        document.removeEventListener('click', startAudio);
-        document.removeEventListener('touchstart', startAudio);
-    }).catch(e => console.log("Esperando interacción..."));
-};
-document.addEventListener('click', startAudio);
-document.addEventListener('touchstart', startAudio);
-document.addEventListener('scroll', startAudio, { once: true });
+bgMusic.volume = 0.35;
+
+function toggleAudio(e) {
+    // No hacer nada si el tap fue sobre un botón, link, input o el modal
+    if (e.target.closest('button, a, input, .modal')) return;
+
+    if (bgMusic.paused) {
+        bgMusic.play().catch(() => {});
+    } else {
+        bgMusic.pause();
+    }
+}
+
+document.addEventListener('click', toggleAudio);
+document.addEventListener('touchstart', toggleAudio);
 
 // --- NIEVE ---
 function createSnowflake() {
